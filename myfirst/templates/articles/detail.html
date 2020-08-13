@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} {{article.article_title}} {% endblock %}
+
+{% block content %}
+<h2>{{article.article_title}}</h2>
+
+<p>{{article.article_text}}</p>
+    
+<em>{{article.pub_date}}</em>
+
+<hr>
+    
+{% if latest_comments_list %}
+{% for c in latest_comments_list %}
+    <p>
+        <strong>{{c.author_name}}</strong>
+        <p>{{c.comment_text}}</p>
+    </p>
+{% endfor %}
+    
+{% else %}
+Komment topilmadii birinchi bo'ling
+{% endif %}
+<hr>
+<form action="{% url 'articles:leave_comment' article.id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" required placeholder="Ismingiz:" name="name"><br>
+    <textarea name="text" required="" cols="30" rows="10" placeholder="Izoh matni">
+    </textarea><br>
+    <button type="submit">Izoh qoldirish</button>
+</form>    
+{% endblock %}

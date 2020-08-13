@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} So'nggi maqolalar {% endblock %}
+
+{% block content %}
+   
+    {% if latest_articles_list %}
+
+        {% for a in latest_articles_list %}
+            <a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a>
+        {% endfor %}
+
+    {% else %}
+        Hech narsa topilmadi (
+    {% endif %}
+
+{% endblock %}
